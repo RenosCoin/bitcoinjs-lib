@@ -1,201 +1,97 @@
-# BitcoinJS (bitcoinjs-lib)
-[![Build Status](https://travis-ci.org/bitcoinjs/bitcoinjs-lib.png?branch=master)](https://travis-ci.org/bitcoinjs/bitcoinjs-lib)
-[![NPM](https://img.shields.io/npm/v/bitcoinjs-lib.svg)](https://www.npmjs.org/package/bitcoinjs-lib)
-[![tip for next commit](https://tip4commit.com/projects/735.svg)](http://tip4commit.com/projects/735)
+Renoscore Library
+=======
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+[![NPM Package](https://img.shields.io/npm/v/litecore-lib.svg?style=flat-square)](https://www.npmjs.org/package/litecore-lib)
+[![Build Status](https://img.shields.io/travis/litecoin-project/litecore-lib.svg?branch=master&style=flat-square)](https://travis-ci.org/litecoin-project/litecore-lib)
+[![Coverage Status](https://img.shields.io/coveralls/litecoin-project/litecore-lib.svg?style=flat-square)](https://coveralls.io/r/litecoin-project/litecore-lib)
 
-The pure JavaScript Bitcoin library for node.js and browsers.
-Estimated to be in use by over 15 million wallet users and is the backbone for almost all Bitcoin web wallets in production today.
+A pure and powerful JavaScript Renoscoin library.
 
+## Principles
 
-## Features
-- Clean: Pure JavaScript, concise code, easy to read.
-- Tested: Coverage > 90%, third-party integration tests.
-- Careful: Two person approval process for small, focused pull requests.
-- Compatible: Works on Node.js and all modern browsers.
-- Powerful: Support for advanced features, such as multi-sig, HD Wallets.
-- Secure: Strong random number generation, PGP signed releases, trusted developers.
-- Principled: No support for browsers with crap RNG (IE < 11)
-- Standardized: Node community coding style, Browserify, Node's stdlib and Buffers.
-- Fast: Optimized code, uses typed arrays instead of byte arrays for performance.
-- Experiment-friendly: Bitcoin Mainnet and Testnet support.
-- Altcoin-ready: Capable of working with bitcoin-derived cryptocurrencies (such as Dogecoin).
+Renoscoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Renoscoin network allows for highly resilient litecoin infrastructure, and the developer community needs reliable, open-source tools to implement Renoscoin apps and services.
 
+## Get Started
 
-## Should I use this in production?
-If you are thinking of using the master branch of this library in production, **stop**.
-Master is not stable; it is our development branch, and [only tagged releases may be classified as stable](https://github.com/bitcoinjs/bitcoinjs-lib/tags).
-
-
-## Installation
-``` bash
-npm install bitcoinjs-lib
+```
+npm install renoscore-lib
 ```
 
-## Setup
-### Node.js
-``` javascript
-var bitcoin = require('bitcoinjs-lib')
+```
+bower install renoscore-lib
 ```
 
-### Browser
-If you're familiar with how to use browserify, ignore this and proceed normally.
-These steps are advisory only,  and may not be suitable for your application.
+## Documentation
 
-[Browserify](https://github.com/substack/node-browserify) is assumed to be installed for these steps.
+The complete docs are hosted here: [litecore documentation](http://litecore.io/guide/). There's also a [litecore API reference](http://litecore.io/api/) available generated from the JSDocs of the project, where you'll find low-level details on each litecore utility.
 
-For your project, create an `index.js` file
-``` javascript
-let bitcoin = require('bitcoinjs-lib')
+- [Read the Developer Guide](http://litecore.io/guide/)
+- [Read the API Reference](http://litecore.io/api/)
 
-// your code here
-function myFunction () {
-	return bitcoin.ECPair.makeRandom().toWIF()
-}
-
-module.exports = {
-	myFunction
-}
-```
-
-Now, to compile for the browser:
-``` bash
-browserify index.js --standalone foo > app.js
-```
-
-You can now put `<script src="app.js" />` in your web page,  using `foo.myFunction` to create a new Bitcoin private key.
-
-**NOTE**: If you uglify the javascript, you must exclude the following variable names from being mangled: `BigInteger`, `ECPair`, `Point`.
-This is because of the function-name-duck-typing used in [typeforce](https://github.com/dcousens/typeforce).
-
-Example:
-``` bash
-uglifyjs ... --mangle --reserved 'BigInteger,ECPair,Point'
-```
-
-**NOTE**: This library tracks Node LTS features,  if you need strict ES5,  use [`--transform babelify`](https://github.com/babel/babelify) in conjunction with your `browserify` step (using an [`es2015`](http://babeljs.io/docs/plugins/preset-es2015/) preset).
-
-**NOTE**: If you expect this library to run on an iOS 10 device, ensure that you are using [buffer@5.0.5](https://github.com/feross/buffer/pull/155) or greater.
-
-
-### Typescript or VSCode users
-Type declarations for Typescript are available for version `^3.0.0` of the library.
-``` bash
-npm install @types/bitcoinjs-lib
-```
-
-You can now use `bitcoinjs-lib` as a typescript compliant library.
-``` javascript
-import { HDNode, Transaction } from 'bitcoinjs-lib'
-```
-
-For VSCode (and other editors), users are advised to install the type declarations, as Intellisense uses that information to help you code (autocompletion, static analysis).
-
-Report any typescript related bugs at [@dlebrecht DefinitelyTyped fork](https://github.com/dlebrecht/DefinitelyTyped),  submit PRs to [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
-
-
-### Flow
-Definitions for [Flow typechecker](https://flowtype.org/) are available in flow-typed repository.
-
-[You can either download them directly](https://github.com/flowtype/flow-typed/blob/master/definitions/npm/bitcoinjs-lib_v2.x.x/flow_v0.17.x-/bitcoinjs-lib_v2.x.x.js) from the repo, or with the flow-typed CLI
-
-    # npm install -g flow-typed
-    $ flow-typed install -f 0.27 bitcoinjs-lib@2.2.0 # 0.27 for flow version, 2.2.0 for bitcoinjs-lib version
-
-The definitions are complete and up to date with version 2.2.0. The definitions are maintained by [@runn1ng](https://github.com/runn1ng).
+To get community assistance and ask for help with implementation questions, please use our [community forums](https://forum.litecore.io/).
 
 ## Examples
-The below examples are implemented as integration tests, they should be very easy to understand.
-Otherwise, pull requests are appreciated.
-Some examples interact (via HTTPS) with a 3rd Party Blockchain Provider (3PBP).
 
-- [Generate a random address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L12)
-- [Generate an address from a SHA256 hash](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L19)
-- [Import an address via WIF](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L29)
-- [Generate a 2-of-3 P2SH multisig address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L36)
-- [Generate a SegWit address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L50)
-- [Generate a SegWit P2SH address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L60)
-- [Generate a SegWit 3-of-4 multisig address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L71)
-- [Generate a SegWit 2-of-2 P2SH multisig address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L86)
-- [Support the retrieval of transactions for an address (3rd party blockchain)](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L100)
-- [Generate a Testnet address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L121)
-- [Generate a Litecoin address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/addresses.js#L131)
-- [Create a 1-to-1 Transaction](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L14)
-- [Create a 2-to-2 Transaction](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L28)
-- [Create (and broadcast via 3PBP) a typical Transaction](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L46)
-- [Create (and broadcast via 3PBP) a Transaction with an OP\_RETURN output](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L88)
-- [Create (and broadcast via 3PBP) a Transaction with a 2-of-4 P2SH(multisig) input](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L115)
-- [Create (and broadcast via 3PBP) a Transaction with a SegWit P2SH(P2WPKH) input](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L151)
-- [Create (and broadcast via 3PBP) a Transaction with a SegWit 3-of-4 P2SH(P2WSH(multisig)) input](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/transactions.js#L183)
-- [Import a BIP32 testnet xpriv and export to WIF](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L8)
-- [Export a BIP32 xpriv, then import it](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L15)
-- [Export a BIP32 xpub](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L26)
-- [Create a BIP32, bitcoin, account 0, external address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L35)
-- [Create a BIP44, bitcoin, account 0, external address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L50)
-- [Create a BIP49, bitcoin testnet, account 0, external address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L66)
-- [Use BIP39 to generate BIP32 addresses](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.js#L83)
-- [Create (and broadcast via 3PBP) a Transaction where Alice can redeem the output after the expiry](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/cltv.js#L37)
-- [Create (and broadcast via 3PBP) a Transaction where Alice and Bob can redeem the output at any time](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/cltv.js#L71)
-- [Create (but fail to broadcast via 3PBP) a Transaction where Alice attempts to redeem before the expiry](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/cltv.js#L104)
-- [Recover a private key from duplicate R values](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/crypto.js#L14)
-- [Recover a BIP32 parent private key from the parent public key, and a derived, non-hardened child private key](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/crypto.js#L115)
-- [Generate a single-key stealth address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/stealth.js#L70:)
-- [Generate a single-key stealth address (randomly)](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/stealth.js#L89:)
-- [Recover parent recipient.d, if a derived private key is leaked (and nonce was revealed)](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/stealth.js#L105)
-- [Generate a dual-key stealth address](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/stealth.js#L122)
-- [Generate a dual-key stealth address (randomly)](https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/stealth.js#L145)
-
-If you have a use case that you feel could be listed here, please [ask for it](https://github.com/bitcoinjs/bitcoinjs-lib/issues/new)!
+* [Generate a random address](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#generate-a-random-address)
+* [Generate a address from a SHA256 hash](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#generate-a-address-from-a-sha256-hash)
+* [Import an address via WIF](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#import-an-address-via-wif)
+* [Create a Transaction](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#create-a-transaction)
+* [Sign a Bitcoin message](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#sign-a-bitcoin-message)
+* [Verify a Bitcoin message](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#verify-a-bitcoin-message)
+* [Create an OP RETURN transaction](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#create-an-op-return-transaction)
+* [Create a 2-of-3 multisig P2SH address](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#create-a-2-of-3-multisig-p2sh-address)
+* [Spend from a 2-of-2 multisig P2SH address](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/docs/examples.md#spend-from-a-2-of-2-multisig-p2sh-address)
 
 
-## Projects utilizing BitcoinJS
-- [BitAddress](https://www.bitaddress.org)
-- [Blockchain.info](https://blockchain.info/wallet)
-- [Blocktrail](https://www.blocktrail.com/)
-- [Dark Wallet](https://www.darkwallet.is/)
-- [DecentralBank](http://decentralbank.com/)
-- [Dogechain Wallet](https://dogechain.info)
-- [EI8HT Wallet](http://ei8.ht/)
-- [GreenAddress](https://greenaddress.it)
-- [Helperbit](https://helperbit.com)
-- [Melis Wallet](https://melis.io)
-- [Robocoin](https://wallet.robocoin.com)
-- [Skyhook ATM](http://projectskyhook.com)
+## Security
 
+We're using renoscore in production, as are [many others](http://litecore.io#projects), but please use common sense when doing anything related to finances! We take no responsibility for your implementation decisions.
+
+If you find a security issue, please email security@bitpay.com.
 
 ## Contributing
-We are always accepting of pull requests, but we do adhere to specific standards in regards to coding style, test driven development and commit messages.
 
-Please make your best effort to adhere to these when contributing to save on trivial corrections.
+Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/litecoin-project/litecore-lib/blob/master/CONTRIBUTING.md) file.
 
+## Building the Browser Bundle
 
-### Running the test suite
+To build a renoscore-lib full bundle for the browser:
 
-``` bash
-npm test
-npm run-script coverage
+```sh
+gulp browser
 ```
 
-## Complementing Libraries
-- [BIP21](https://github.com/bitcoinjs/bip21) - A BIP21 compatible URL encoding utility library
-- [BIP38](https://github.com/bitcoinjs/bip38) - Passphrase-protected private keys
-- [BIP39](https://github.com/bitcoinjs/bip39) - Mnemonic generation for deterministic keys
-- [BIP32-Utils](https://github.com/bitcoinjs/bip32-utils) - A set of utilities for working with BIP32
-- [BIP66](https://github.com/bitcoinjs/bip66) - Strict DER signature decoding
-- [BIP69](https://github.com/bitcoinjs/bip69) - Lexicographical Indexing of Transaction Inputs and Outputs
-- [Base58](https://github.com/cryptocoinjs/bs58) - Base58 encoding/decoding
-- [Base58 Check](https://github.com/bitcoinjs/bs58check) - Base58 check encoding/decoding
-- [Bech32](https://github.com/bitcoinjs/bech32) - A BIP173 compliant Bech32 encoding library
-- [coinselect](https://github.com/bitcoinjs/coinselect) - A fee-optimizing, transaction input selection module for bitcoinjs-lib.
-- [merkle-lib](https://github.com/bitcoinjs/merkle-lib) - A performance conscious library for merkle root and tree calculations.
-- [minimaldata](https://github.com/bitcoinjs/minimaldata) - A module to check bitcoin policy: SCRIPT_VERIFY_MINIMALDATA
+This will generate files named `renoscore-lib.js` and `renoscore-lib.min.js`.
+
+You can also use our pre-generated files, provided for each release along with a PGP signature by one of the project's maintainers. To get them, checkout a release commit (for example, https://github.com/bitpay/bitcore-lib/commit/e33b6e3ba6a1e5830a079e02d949fce69ea33546 for v0.12.6).
+
+To verify signatures, use the following PGP keys:
+- @braydonf: https://pgp.mit.edu/pks/lookup?op=get&search=0x9BBF07CAC07A276D `D909 EFE6 70B5 F6CC 89A3 607A 9BBF 07CA C07A 276D`
+- @gabegattis: https://pgp.mit.edu/pks/lookup?op=get&search=0x441430987182732C `F3EA 8E28 29B4 EC93 88CB  B0AA 4414 3098 7182 732C`
+- @kleetus: https://pgp.mit.edu/pks/lookup?op=get&search=0x33195D27EF6BDB7F `F8B0 891C C459 C197 65C2 5043 3319 5D27 EF6B DB7F`
+- @matiu: https://pgp.mit.edu/pks/lookup?op=get&search=0x9EDE6DE4DE531FAC `25CE ED88 A1B1 0CD1 12CD  4121 9EDE 6DE4 DE53 1FAC`
 
 
-## Alternatives
-- [BCoin](https://github.com/indutny/bcoin)
-- [Bitcore](https://github.com/bitpay/bitcore)
-- [Cryptocoin](https://github.com/cryptocoinjs/cryptocoin)
+## Development & Tests
 
+```sh
+git clone https://github.com/RenosCoin/renoscoinjs-lib/
+cd renoscore-lib
+npm install
+```
 
-## LICENSE [MIT](LICENSE)
+Run all the tests:
+
+```sh
+gulp test
+```
+
+You can also run just the Node.js tests with `gulp test:node`, just the browser tests with `gulp test:browser`
+or create a test coverage report (you can open `coverage/lcov-report/index.html` to visualize it) with `gulp coverage`.
+
+## License
+
+Code released under [the MIT license](https://github.com/RenosCoin/renoscoinjs-lib/blob/master/LICENSE).
+
+Copyright 2013-2017 BitPay, Inc. Bitcore is a trademark maintained by BitPay, Inc.
+Copyright 2016-2017 The Litecoin Core Developers

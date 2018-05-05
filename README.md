@@ -9,7 +9,7 @@ A pure and powerful JavaScript Renoscoin library.
 
 ## Principles
 
-Renoscoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Renoscoin network allows for highly resilient litecoin infrastructure, and the developer community needs reliable, open-source tools to implement Renoscoin apps and services.
+Renoscoin is a powerful new peer-to-peer platform for the next generation of financial technology. The decentralized nature of the Renoscoin network allows for highly resilient infrastructure, and the developer community needs reliable, open-source tools to implement Renoscoin apps and services.
 
 ## Get Started
 
